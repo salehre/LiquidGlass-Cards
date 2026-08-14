@@ -7,6 +7,22 @@ defineProps<{
 }>()
 
 const view = ref<'preview' | 'code'>('preview')
+
+// Add / rename entries here once the images are in public/image.
+const backgrounds = [
+  '/image/orange.jpg',
+  '/image/sky.jpg',
+  '/image/emerald.jpg',
+  '/image/rose.jpg',
+]
+
+const currentBg = ref(backgrounds[0])
+
+function shuffleBackground() {
+  const options = backgrounds.filter((bg) => bg !== currentBg.value)
+  const pick = options[Math.floor(Math.random() * options.length)]
+  currentBg.value = pick ?? backgrounds[0]
+}
 </script>
 
 <template>
@@ -41,10 +57,25 @@ const view = ref<'preview' | 'code'>('preview')
           Code
         </button>
       </div>
+
+      <button
+        v-if="view === 'preview'"
+        type="button"
+        class="shuffle-btn"
+        title="تغییر تصادفی پس‌زمینه"
+        @click="shuffleBackground"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m18 4 3 3-3 3" />
+          <path d="M2 7h5c1.5 0 2.5.5 3.5 2l5 8c1 1.5 2 2 3.5 2h3" />
+          <path d="m18 20 3-3-3-3" />
+          <path d="M2 17h5c1.5 0 2.5-.5 3.5-2M13.5 8.5c1-1.5 2-2 3.5-2H21" />
+        </svg>
+      </button>
     </div>
 
     <div v-if="view === 'preview'" class="preview-stage">
-      <div class="preview-bg" />
+      <div class="preview-bg" :style="{ backgroundImage: `url('${currentBg}')` }" />
       <div class="preview-overlay" />
       <div class="relative z-10 flex w-full items-center justify-center">
         <component :is="entry.component" />
@@ -74,6 +105,8 @@ const view = ref<'preview' | 'code'>('preview')
 
 .stage-toolbar {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .toggle-group {
@@ -114,6 +147,30 @@ const view = ref<'preview' | 'code'>('preview')
   color: #0b0f1a;
 }
 
+.shuffle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(245, 246, 250, 0.7);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.shuffle-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.shuffle-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+
 .preview-stage {
   position: relative;
   min-height: 460px;
@@ -125,12 +182,9 @@ const view = ref<'preview' | 'code'>('preview')
   padding: 2rem;
 }
 
-/* Drop your own image at public/image/preview-bg.jpg — update the path
-   below if you use a different name or format. */
 .preview-bg {
   position: absolute;
   inset: 0;
-  background-image: url('/image/orange.jpg');
   background-size: cover;
   background-position: center;
 }
