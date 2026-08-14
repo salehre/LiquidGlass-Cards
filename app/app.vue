@@ -2,12 +2,6 @@
 
 <template>
   <div class="page">
-    <div class="bg-orbs" aria-hidden="true">
-      <span class="orb orb-1" />
-      <span class="orb orb-2" />
-      <span class="orb orb-3" />
-    </div>
-
     <header class="top-header">
       <div class="brand">
         <span class="brand-dot" />

@@ -19,48 +19,6 @@ body {
   flex-direction: column;
 }
 
-/* --- animated blurred background orbs, shared by every framework tab --- */
-.bg-orbs {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.55;
-  animation: float 16s ease-in-out infinite;
-}
-
-.orb-1 {
-  width: 420px;
-  height: 420px;
-  top: -120px;
-  left: -80px;
-  background: radial-gradient(circle at 30% 30%, #7c3aed, transparent 70%);
-}
-
-.orb-2 {
-  width: 380px;
-  height: 380px;
-  bottom: -100px;
-  right: -60px;
-  background: radial-gradient(circle at 60% 40%, #06b6d4, transparent 70%);
-  animation-delay: -5s;
-}
-
-.orb-3 {
-  width: 320px;
-  height: 320px;
-  top: 40%;
-  left: 55%;
-  background: radial-gradient(circle at 50% 50%, #f43f5e, transparent 70%);
-  animation-delay: -10s;
-}
 
 @keyframes float {
   0%, 100% { transform: translate(0, 0) scale(1); }

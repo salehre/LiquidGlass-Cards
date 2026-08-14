@@ -184,17 +184,22 @@ function shuffleBackground() {
 
 .preview-bg {
   position: absolute;
-  inset: 0;
+  inset: -6%;
   background-size: cover;
   background-position: center;
+  animation: float-bg 20s ease-in-out infinite;
+}
+
+@keyframes float-bg {
+  0%, 100% { transform: translate(0, 0) scale(1.08); }
+  25% { transform: translate(2%, -1.5%) scale(1.08); }
+  50% { transform: translate(-1.5%, 2%) scale(1.08); }
+  75% { transform: translate(-2%, -1%) scale(1.08); }
 }
 
 .preview-overlay {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at 25% 15%, rgba(124, 58, 237, 0.35), transparent 60%),
-    radial-gradient(circle at 80% 85%, rgba(6, 182, 212, 0.3), transparent 60%),
-    rgba(11, 15, 26, 0.4);
+  background: rgba(11, 15, 26, 0.4);
 }
 </style>
