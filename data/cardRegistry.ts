@@ -21,7 +21,7 @@ export type { CardEntry } from './types'
 // Once a card's code is written, add data/code/card-XX.ts, import it above,
 // and swap that single `code:` value below from `pendingCode` to it.
 export const cardRegistry: CardEntry[] = [
-  { id: 1, name: 'Frosted Light', ready: true, component: markRaw(Card01), code: card01Code },
+  { id: 1, name: 'Liquid Crystal', ready: true, component: markRaw(Card01), code: card01Code },
   { id: 2, name: 'Variant 02', ready: false, component: markRaw(Card02), code: pendingCode },
   { id: 3, name: 'Variant 03', ready: false, component: markRaw(Card03), code: pendingCode },
   { id: 4, name: 'Variant 04', ready: false, component: markRaw(Card04), code: pendingCode },

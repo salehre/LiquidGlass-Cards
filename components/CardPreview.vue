@@ -15,10 +15,10 @@ const activeCode = computed(() => props.entry.code[activeFramework.value])
 
 // Add / rename entries here once the images are in public/image.
 const backgrounds = [
-  '/image/orange.jpg',
-  '/image/sky.jpg',
-  '/image/emerald.jpg',
-  '/image/rose.jpg',
+  '/image/orange.webp',
+  '/image/sky.webp',
+  '/image/emerald.webp',
+  '/image/rose.webp',
 ]
 
 const currentBg = ref(backgrounds[0])

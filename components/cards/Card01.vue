@@ -1,42 +1,186 @@
 <script setup lang="ts">
-// Frosted Light — the first real translation. Sample content mirrors the
-// reference: avatar + name/role, bell icon, title, description, button, tip.
+// Liquid Crystal — glass card whose frosted look comes from the shared
+// #glass-distortion SVG filter (defined once in app.vue), not a plain
+// backdrop-blur. See data/code/card-01.ts for the per-framework markup.
 </script>
 
 <template>
-  <div class="w-full max-w-xs rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl shadow-xl">
-    <div class="flex items-start justify-between">
-      <div class="flex items-center gap-3">
-        <div class="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10">
-          <svg class="h-5 w-5 text-white/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="8" r="4" />
-            <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
-          </svg>
+  <div class="liquid-glass-card">
+    <div class="card-content">
+      <div class="card-header">
+        <div class="user-info">
+          <div class="avatar">
+            <svg class="avatar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <div class="user-details">
+            <p class="user-name">Jane Doe</p>
+            <p class="user-role">UX Designer</p>
+          </div>
         </div>
-        <div>
-          <p class="text-sm font-bold text-white">Jane Doe</p>
-          <p class="text-xs text-white/50">UX Designer</p>
-        </div>
+        <svg class="notification-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+        </svg>
       </div>
-      <svg class="h-5 w-5 text-white/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M6 8a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6Z" />
-        <path d="M10 20a2 2 0 0 0 4 0" />
-      </svg>
+      <div class="card-body">
+        <h3 class="card-title">Styled Component</h3>
+        <p class="card-description">This is a sample of how your content might look inside.</p>
+        <button class="glass-button">Get Started</button>
+      </div>
+      <p class="card-tip">Tip: Try adjusting the sliders and colors to see real-time changes!</p>
     </div>
-
-    <div class="mt-9 text-center">
-      <h3 class="text-base font-bold text-white">Styled Component</h3>
-      <p class="mt-2 text-sm leading-relaxed text-white/60">
-        This is a sample of how your content might look inside.
-      </p>
-    </div>
-
-    <button class="mt-6 w-full rounded-xl border border-white/15 bg-white/10 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/20">
-      Get Started
-    </button>
-
-    <p class="mt-6 text-center text-[11px] leading-relaxed text-white/40">
-      Tip: Try adjusting the sliders and colors to see real-time changes!
-    </p>
   </div>
 </template>
+
+<style scoped>
+.liquid-glass-card {
+  position: relative;
+  width: 400px;
+  max-width: 100%;
+  height: 300px;
+  border-radius: 28px;
+  isolation: isolate;
+  box-shadow: 0px 0px 21px -8px rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+
+.liquid-glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 28px;
+  box-shadow: inset 0 0 5px -8px rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0);
+  pointer-events: none;
+}
+
+.liquid-glass-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 28px;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  filter: url(#glass-distortion);
+  -webkit-filter: url(#glass-distortion);
+  isolation: isolate;
+  pointer-events: none;
+}
+
+.card-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #3b82f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-icon {
+  width: 20px;
+  height: 20px;
+  color: #3b82f6;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: 600;
+  margin: 0;
+}
+
+.user-role {
+  font-size: 12px;
+  opacity: 0.7;
+  margin: 0;
+}
+
+.notification-icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.5;
+}
+
+.card-body {
+  text-align: center;
+  margin-top: 8px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+
+.card-description {
+  font-size: 14px;
+  opacity: 0.7;
+  margin: 0 0 16px 0;
+}
+
+.glass-button {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.glass-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+}
+
+.card-tip {
+  font-size: 12px;
+  text-align: center;
+  color: #e0e6ed;
+  margin: 16px 0 0 0;
+}
+</style>
