@@ -55,7 +55,7 @@ const { activeMeta } = useFrameworkTheme()
 
 .generator-grid {
   display: grid;
-  grid-template-columns: 340px 1fr;
+  grid-template-columns: 540px 1fr;
   gap: 1.5rem;
   align-items: start;
 }

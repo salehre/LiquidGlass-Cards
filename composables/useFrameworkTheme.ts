@@ -20,7 +20,7 @@ export const frameworks: FrameworkMeta[] = [
   {
     id: 'bootstrap',
     label: 'Bootstrap',
-    color: '#7c3aed',
+    color: '#712CF9',
     colorRgb: '124, 58, 237',
     title: 'کارت‌ها با Bootstrap',
     description:
@@ -29,7 +29,7 @@ export const frameworks: FrameworkMeta[] = [
   {
     id: 'tailwind',
     label: 'Tailwind',
-    color: '#0ea5e9',
+    color: '#00BCFF',
     colorRgb: '14, 165, 233',
     title: 'کارت‌ها با Tailwind CSS',
     description:
@@ -38,7 +38,7 @@ export const frameworks: FrameworkMeta[] = [
   {
     id: 'vuetify',
     label: 'Vuetify',
-    color: '#10b981',
+    color: '#42B883',
     colorRgb: '16, 185, 129',
     title: 'کارت‌ها با Vuetify',
     description:

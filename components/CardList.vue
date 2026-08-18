@@ -26,11 +26,7 @@ const emit = defineEmits<{
         :class="{ active: modelValue === entry.id, pending: !entry.ready }"
         @click="emit('update:modelValue', entry.id)"
       >
-        <span class="thumb-frame">
-          <span class="thumb-render">
-            <component :is="entry.component" />
-          </span>
-        </span>
+        <span class="thumb-frame" /> 
         <span class="thumb-label">{{ entry.name }}</span>
       </button>
     </div>
@@ -82,7 +78,7 @@ const emit = defineEmits<{
   align-items: center;
   gap: 0.5rem;
   padding: 0.6rem;
-  border-radius: 1rem;
+  border-radius: 10px;
   border: 1px solid transparent;
   background: rgba(255, 255, 255, 0.03);
   cursor: pointer;
@@ -106,23 +102,16 @@ const emit = defineEmits<{
 .thumb-frame {
   display: block;
   width: 100%;
-  height: 92px;
-  overflow: hidden;
-  border-radius: 0.75rem;
-  position: relative;
-  background: radial-gradient(circle at 30% 20%, #1e1b3a, #0b0f1a 70%);
-}
-
-/* Render each real card component at natural size, then scale it down to
-   fit the thumbnail frame — keeps every thumbnail an honest live preview. */
-.thumb-render {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 320px;
-  transform: scale(0.3);
-  transform-origin: top left;
-  pointer-events: none;
+  aspect-ratio: 1 / 1;
+  border-radius: 1.5rem;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02) 55%, transparent 75%),
+    #12141f;
+  box-shadow:
+    inset 0 0 24px rgba(255, 255, 255, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 22px rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .thumb-label {

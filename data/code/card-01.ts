@@ -1,140 +1,196 @@
 import type { CardFrameworkCode } from '../types'
 
-/** Frosted Light — the first fully translated card. */
+/**
+ * Liquid Crystal — glass card whose frosted look comes from an SVG
+ * feTurbulence/feDisplacementMap filter (#glass-distortion), not a plain
+ * backdrop-blur. The filter itself is defined once, globally (see app.vue),
+ * and referenced here via `filter: url(#glass-distortion)`.
+ */
 export const card01Code: CardFrameworkCode = {
-  tailwind: `<div class="w-full max-w-xs rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl shadow-xl">
-  <div class="flex items-start justify-between">
-    <div class="flex items-center gap-3">
-      <div class="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10">
-        <!-- user icon -->
+  tailwind: `<!-- #glass-distortion SVG filter is defined once, globally — see the
+     <svg><defs><filter> block included in the app shell. Tailwind has no
+     utility for that kind of filter, so the distortion + inset-shadow
+     layers stay hand-written CSS; everything else below is Tailwind. -->
+<div class="liquid-glass-card relative w-full max-w-[400px] h-[300px] rounded-[28px] isolate cursor-pointer">
+  <div class="relative z-10 flex h-full w-full flex-col justify-between p-6 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+    <div class="flex items-start justify-between">
+      <div class="flex items-center gap-3">
+        <div class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white/10">
+          <!-- user icon, text-blue-500 -->
+        </div>
+        <div class="flex flex-col">
+          <p class="m-0 font-semibold">Jane Doe</p>
+          <p class="m-0 text-xs opacity-70">UX Designer</p>
+        </div>
       </div>
-      <div>
-        <p class="text-sm font-bold text-white">Jane Doe</p>
-        <p class="text-xs text-white/50">UX Designer</p>
-      </div>
+      <!-- bell icon, opacity-50 -->
     </div>
-    <!-- bell icon -->
-  </div>
 
-  <div class="mt-9 text-center">
-    <h3 class="text-base font-bold text-white">Styled Component</h3>
-    <p class="mt-2 text-sm text-white/60">This is a sample of how your content might look inside.</p>
-  </div>
-
-  <button class="mt-6 w-full rounded-xl border border-white/15 bg-white/10 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/20">
-    Get Started
-  </button>
-
-  <p class="mt-6 text-center text-[11px] text-white/40">
-    Tip: Try adjusting the sliders and colors to see real-time changes!
-  </p>
-</div>`,
-  bootstrap: `<!-- Bootstrap has no backdrop-blur utility, so the frosted-glass surface
-     itself is a small custom class layered on top of Bootstrap's own
-     grid/utility classes (d-flex, rounded, text-white-50, ...). -->
-<div class="card frosted-card border-0 text-white p-4">
-  <div class="d-flex justify-content-between align-items-start">
-    <div class="d-flex align-items-center gap-3">
-      <div class="avatar-ring d-flex align-items-center justify-content-center rounded-circle">
-        <!-- user icon -->
-      </div>
-      <div>
-        <p class="mb-0 fw-bold small">Jane Doe</p>
-        <p class="mb-0 text-white-50 small">UX Designer</p>
-      </div>
+    <div class="mt-2 text-center">
+      <h3 class="m-0 mb-1 text-lg font-bold">Styled Component</h3>
+      <p class="m-0 mb-4 text-sm opacity-70">This is a sample of how your content might look inside.</p>
+      <button class="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2 font-semibold text-white shadow backdrop-blur-[8px] transition-all hover:bg-white/20">
+        Get Started
+      </button>
     </div>
-    <!-- bell icon -->
-  </div>
 
-  <div class="text-center mt-5">
-    <h3 class="fs-6 fw-bold mb-0">Styled Component</h3>
-    <p class="small text-white-50 mt-2 mb-0">
-      This is a sample of how your content might look inside.
+    <p class="mt-4 text-center text-xs" style="color: #e0e6ed;">
+      Tip: Try adjusting the sliders and colors to see real-time changes!
     </p>
   </div>
-
-  <button class="btn btn-glass w-100 mt-4">Get Started</button>
-
-  <p class="text-center text-white-50 mt-4 mb-0" style="font-size: 11px;">
-    Tip: Try adjusting the sliders and colors to see real-time changes!
-  </p>
 </div>
 
 <style>
-.frosted-card {
-  max-width: 20rem;
-  border-radius: 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+.liquid-glass-card { box-shadow: 0px 0px 21px -8px rgba(255, 255, 255, 0.3); }
+.liquid-glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 28px;
+  box-shadow: inset 0 0 5px -8px rgba(255, 255, 255, 0.7);
+  pointer-events: none;
 }
-.avatar-ring {
-  width: 2.5rem;
-  height: 2.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.1);
-}
-.btn-glass {
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  border-radius: 0.75rem;
-  padding: 0.6rem;
-  font-weight: 600;
-  font-size: 0.875rem;
-}
-.btn-glass:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
+.liquid-glass-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 28px;
+  filter: url(#glass-distortion);
+  -webkit-filter: url(#glass-distortion);
+  isolation: isolate;
+  pointer-events: none;
 }
 </style>`,
-  vuetify: `<!-- Vuetify supplies the components (v-card, v-avatar, v-icon, v-btn);
-     the frosted-glass surface is still custom CSS layered on top. -->
-<v-card class="frosted-card pa-6" rounded="xl" elevation="0" max-width="320">
-  <div class="d-flex justify-space-between align-start">
-    <div class="d-flex align-center" style="gap: 12px;">
-      <v-avatar size="40" class="avatar-ring">
-        <v-icon icon="mdi-account-outline" color="white" size="20" />
-      </v-avatar>
-      <div>
-        <p class="text-body-2 font-weight-bold text-white mb-0">Jane Doe</p>
-        <p class="text-caption text-white text-opacity-50 mb-0">UX Designer</p>
+  bootstrap: `<!-- #glass-distortion SVG filter is defined once, globally — see the
+     <svg><defs><filter> block included in the app shell. -->
+<div class="liquid-glass-card position-relative rounded-4 mx-auto" style="width: 400px; max-width: 100%; height: 300px;">
+  <div class="position-relative d-flex h-100 w-100 flex-column justify-content-between p-4 text-white" style="z-index: 10; text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+    <div class="d-flex justify-content-between align-items-start">
+      <div class="d-flex align-items-center gap-3">
+        <div class="avatar d-flex align-items-center justify-content-center rounded-circle">
+          <!-- user icon -->
+        </div>
+        <div class="d-flex flex-column">
+          <p class="mb-0 fw-semibold">Jane Doe</p>
+          <p class="mb-0 small opacity-75">UX Designer</p>
+        </div>
       </div>
+      <!-- bell icon, opacity-50 -->
     </div>
-    <v-icon icon="mdi-bell-outline" color="white" size="20" style="opacity: .5" />
-  </div>
 
-  <div class="text-center mt-8">
-    <h3 class="text-subtitle-1 font-weight-bold text-white mb-0">Styled Component</h3>
-    <p class="text-body-2 text-white text-opacity-60 mt-2 mb-0">
-      This is a sample of how your content might look inside.
+    <div class="text-center mt-2">
+      <h3 class="fs-6 fw-bold mb-1">Styled Component</h3>
+      <p class="small opacity-75 mb-3">This is a sample of how your content might look inside.</p>
+      <button class="btn glass-button w-100">Get Started</button>
+    </div>
+
+    <p class="text-center small mb-0 mt-3" style="color: #e0e6ed;">
+      Tip: Try adjusting the sliders and colors to see real-time changes!
     </p>
   </div>
+</div>
 
-  <v-btn block variant="outlined" color="white" class="mt-6 glass-btn">
-    Get Started
-  </v-btn>
+<style>
+.liquid-glass-card { isolation: isolate; box-shadow: 0px 0px 21px -8px rgba(255, 255, 255, 0.3); }
+.liquid-glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 5px -8px rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+}
+.liquid-glass-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  filter: url(#glass-distortion);
+  -webkit-filter: url(#glass-distortion);
+  isolation: isolate;
+  pointer-events: none;
+}
+.avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #3b82f6;
+}
+.glass-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.glass-button:hover { background: rgba(255, 255, 255, 0.2); color: #fff; }
+.glass-button:focus { box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4); }
+</style>`,
+  vuetify: `<!-- #glass-distortion SVG filter is defined once, globally — see the
+     <svg><defs><filter> block included in the app shell. -->
+<v-card class="liquid-glass-card pa-6" rounded="xl" elevation="0" width="400" height="300" style="max-width: 100%;">
+  <div class="d-flex flex-column justify-space-between h-100" style="position: relative; z-index: 10; text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+    <div class="d-flex justify-space-between align-start">
+      <div class="d-flex align-center" style="gap: 12px;">
+        <v-avatar size="40" class="avatar-ring">
+          <v-icon icon="mdi-account-outline" color="#3b82f6" size="20" />
+        </v-avatar>
+        <div>
+          <p class="text-body-2 font-weight-medium text-white mb-0">Jane Doe</p>
+          <p class="text-caption text-white text-opacity-70 mb-0">UX Designer</p>
+        </div>
+      </div>
+      <v-icon icon="mdi-bell-outline" color="white" size="20" style="opacity: .5" />
+    </div>
 
-  <p class="text-center text-white text-opacity-40 mt-6 mb-0" style="font-size: 11px;">
-    Tip: Try adjusting the sliders and colors to see real-time changes!
-  </p>
+    <div class="text-center">
+      <h3 class="text-subtitle-1 font-weight-bold text-white mb-1">Styled Component</h3>
+      <p class="text-body-2 text-white text-opacity-70 mb-4">
+        This is a sample of how your content might look inside.
+      </p>
+      <v-btn block variant="tonal" color="white" class="glass-btn">Get Started</v-btn>
+    </div>
+
+    <p class="text-center mb-0" style="font-size: 12px; color: #e0e6ed;">
+      Tip: Try adjusting the sliders and colors to see real-time changes!
+    </p>
+  </div>
 </v-card>
 
 <style>
-.frosted-card {
-  background: rgba(255, 255, 255, 0.1) !important;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+.liquid-glass-card { isolation: isolate; box-shadow: 0px 0px 21px -8px rgba(255, 255, 255, 0.3) !important; background: transparent !important; }
+.liquid-glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 5px -8px rgba(255, 255, 255, 0.7);
+  pointer-events: none;
 }
-.avatar-ring {
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.1);
+.liquid-glass-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  filter: url(#glass-distortion);
+  -webkit-filter: url(#glass-distortion);
+  isolation: isolate;
+  pointer-events: none;
 }
+.avatar-ring { border: 2px solid #3b82f6; background: rgba(255, 255, 255, 0.1); }
 .glass-btn {
-  border-color: rgba(255, 255, 255, 0.15) !important;
   background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 </style>`,
 }
