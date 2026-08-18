@@ -2,6 +2,8 @@ import { markRaw } from 'vue'
 import type { CardEntry } from './types'
 import { pendingCode } from './code/pending'
 import { card01Code } from './code/card-01'
+import { card02Code } from './code/card-02'
+import { card03Code } from './code/card-03'
 
 import Card01 from '~/components/cards/Card01.vue'
 import Card02 from '~/components/cards/Card02.vue'
@@ -22,8 +24,8 @@ export type { CardEntry } from './types'
 // and swap that single `code:` value below from `pendingCode` to it.
 export const cardRegistry: CardEntry[] = [
   { id: 1, name: 'Liquid Crystal', ready: true, component: markRaw(Card01), code: card01Code },
-  { id: 2, name: 'Fluid Amber', ready: false, component: markRaw(Card02), code: pendingCode },
-  { id: 3, name: 'Ice Ripple', ready: false, component: markRaw(Card03), code: pendingCode },
+  { id: 2, name: 'Fluid Amber', ready: true, component: markRaw(Card02), code: card02Code },
+  { id: 3, name: 'Ice Ripple', ready: true, component: markRaw(Card03), code: card03Code },
   { id: 4, name: 'Mercury Drop', ready: false, component: markRaw(Card04), code: pendingCode },
   { id: 5, name: 'Ocean Wave', ready: false, component: markRaw(Card05), code: pendingCode },
   { id: 6, name: 'Crystal Mist', ready: false, component: markRaw(Card06), code: pendingCode },
