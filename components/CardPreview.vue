@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import type { CardEntry } from '~/data/cardRegistry'
+import { useFrameworkTheme } from '~/composables/useFrameworkTheme'
 
-defineProps<{
+const props = defineProps<{
   entry: CardEntry
 }>()
 
 const view = ref<'preview' | 'code'>('preview')
+
+const { activeFramework } = useFrameworkTheme()
+
+const activeCode = computed(() => props.entry.code[activeFramework.value])
 
 // Add / rename entries here once the images are in public/image.
 const backgrounds = [
@@ -82,7 +87,7 @@ function shuffleBackground() {
       </div>
     </div>
 
-    <CodeBlock v-else :code="entry.code" />
+    <CodeBlock v-else :code="activeCode" :framework="activeFramework" />
   </div>
 </template>
 
@@ -167,7 +172,8 @@ function shuffleBackground() {
 }
 
 .shuffle-btn:hover {
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(var(--accent-rgb, 124, 58, 237), 0.25);
+  border-color: rgba(var(--accent-rgb, 124, 58, 237), 0.5);
   color: #fff;
 }
 

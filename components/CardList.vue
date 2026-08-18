@@ -94,8 +94,9 @@ const emit = defineEmits<{
 }
 
 .thumb-btn.active {
-  border-color: rgba(124, 58, 237, 0.6);
-  background: rgba(124, 58, 237, 0.12);
+  border-color: rgba(var(--accent-rgb, 124, 58, 237), 0.6);
+  background: rgba(var(--accent-rgb, 124, 58, 237), 0.12);
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .thumb-btn.pending {

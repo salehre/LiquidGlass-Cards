@@ -1,9 +1,22 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import type { FrameworkId } from '~/composables/useFrameworkTheme'
 
 const props = defineProps<{
   code: string
+  framework?: FrameworkId
 }>()
+
+const langLabel = computed(() => {
+  switch (props.framework) {
+    case 'bootstrap':
+      return 'HTML + Bootstrap'
+    case 'vuetify':
+      return 'Vue + Vuetify'
+    default:
+      return 'HTML + Tailwind'
+  }
+})
 
 const copied = ref(false)
 
@@ -21,7 +34,7 @@ async function copyCode() {
 <template>
   <div class="code-box">
     <div class="code-header">
-      <span class="code-lang">HTML + Tailwind</span>
+      <span class="code-lang">{{ langLabel }}</span>
       <button type="button" class="copy-btn" @click="copyCode">
         {{ copied ? 'کپی شد ✓' : 'کپی کد' }}
       </button>
