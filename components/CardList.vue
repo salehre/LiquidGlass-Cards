@@ -13,8 +13,8 @@ const emit = defineEmits<{
 <template>
   <div class="panel list-panel">
     <div class="panel-header">
-      <h2 class="panel-title">استایل‌های کارت</h2>
-      <span class="panel-sub">۱۲ کارت شیشه‌ای — یکی رو انتخاب کن</span>
+      <h2 class="panel-title">Card Styles</h2>
+      <span class="panel-sub">12 glass cards — pick one</span>
     </div>
 
     <div class="thumb-grid">
@@ -103,20 +103,22 @@ const emit = defineEmits<{
   display: block;
   width: 100%;
   aspect-ratio: 1 / 1;
-  border-radius: 1.5rem;
+  border-radius: 1.25rem;
   background:
-    radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02) 55%, transparent 75%),
-    #12141f;
+    radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.02) 55%, transparent 75%),
+    #101219;
   box-shadow:
-    inset 0 0 24px rgba(255, 255, 255, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 0 22px rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+    inset 0 0 28px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 0 26px rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .thumb-label {
-  font-size: 0.7rem;
-  color: rgba(245, 246, 250, 0.75);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: rgba(245, 246, 250, 0.9);
   text-align: center;
 }
 </style>

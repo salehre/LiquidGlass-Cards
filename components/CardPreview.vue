@@ -15,10 +15,10 @@ const activeCode = computed(() => props.entry.code[activeFramework.value])
 
 // Add / rename entries here once the images are in public/image.
 const backgrounds = [
-  '/image/orange.webp',
-  '/image/sky.webp',
-  '/image/emerald.webp',
-  '/image/rose.webp',
+  '/images/orange.webp',
+  '/images/sky.webp',
+  '/images/emerald.webp',
+  '/images/rose.webp',
 ]
 
 const currentBg = ref(backgrounds[0])
@@ -67,7 +67,7 @@ function shuffleBackground() {
         v-if="view === 'preview'"
         type="button"
         class="shuffle-btn"
-        title="تغییر تصادفی پس‌زمینه"
+        title="Shuffle background"
         @click="shuffleBackground"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

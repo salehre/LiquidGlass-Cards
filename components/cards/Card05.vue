@@ -5,7 +5,7 @@
 <template>
   <div class="w-full max-w-xs rounded-3xl border border-dashed border-white/15 bg-white/5 p-6 backdrop-blur-xl">
     <div class="flex h-40 items-center justify-center text-center">
-      <p class="text-sm text-white/40">Variant 12 — هنوز آماده نشده</p>
+      <p class="text-sm text-white/40">Variant 05 — not ready yet</p>
     </div>
   </div>
 </template>

@@ -22,27 +22,27 @@ export const frameworks: FrameworkMeta[] = [
     label: 'Bootstrap',
     color: '#712CF9',
     colorRgb: '124, 58, 237',
-    title: 'کارت‌ها با Bootstrap',
+    title: 'Cards with Bootstrap',
     description:
-      'در این حالت، ساختار کلاس‌بندی و کامپوننت‌های نمایشی از دل سیستم Bootstrap الهام گرفته شده — مناسب پروژه‌هایی که از قبل روی Bootstrap ساخته شدن.',
+      'In this mode, the class structure and display components are inspired by the Bootstrap system — a good fit for projects already built on Bootstrap.',
   },
   {
     id: 'tailwind',
     label: 'Tailwind',
     color: '#00BCFF',
     colorRgb: '14, 165, 233',
-    title: 'کارت‌ها با Tailwind CSS',
+    title: 'Cards with Tailwind CSS',
     description:
-      'همه‌ی ۱۲ استایل کارت شیشه‌ای این پروژه با کلاس‌های اتمی Tailwind نوشته شدن؛ برای شخصی‌سازی سریع و بدون نوشتن CSS جداگانه عالیه.',
+      'All 12 glass card styles in this project are written with Tailwind\'s utility classes — great for quick customization without writing separate CSS.',
   },
   {
     id: 'vuetify',
     label: 'Vuetify',
     color: '#42B883',
     colorRgb: '16, 185, 129',
-    title: 'کارت‌ها با Vuetify',
+    title: 'Cards with Vuetify',
     description:
-      'این حالت هماهنگ با زبان طراحی متریال و کامپوننت‌های آماده‌ی Vuetify طراحی شده — گزینه‌ی خوبی برای اپ‌های اداری و داشبوردی.',
+      'This mode is designed around Material Design language and Vuetify\'s ready-made components — a good option for admin apps and dashboards.',
   },
 ]
 

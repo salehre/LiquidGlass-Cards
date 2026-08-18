@@ -1,9 +1,9 @@
-# قرارداد فایل‌های کد
+# Code files convention
 
-هر کارت یه پوشه‌ی جدا داره: `card-01`, `card-02`, ... `card-12`
-(شماره‌ی دو رقمی، هم‌ارز با `id` همون کارت توی `cardRegistry.ts`).
+Each card gets its own folder: `card-01`, `card-02`, ... `card-12`
+(two-digit number, matching that card's `id` in `cardRegistry.ts`).
 
-داخل هر پوشه، دقیقاً سه فایل:
+Inside each folder, exactly three files:
 
 ```
 data/code/card-01/tailwind.html
@@ -11,14 +11,15 @@ data/code/card-01/bootstrap.html
 data/code/card-01/vuetify.html
 ```
 
-هرکدوم فقط شامل همون بلوک کد (HTML/Vue + کلاس‌ها، و در صورت نیاز یه
-`<style>` کوچیک برای چیزی که خود فریم‌ورک پشتیبانی نمی‌کنه — مثل
-backdrop-blur در Bootstrap/Vuetify) هست، بدون هیچ منطق اضافه.
+Each one contains only that code block (HTML/Vue + classes, and a small
+`<style>` if needed for something the framework itself doesn't support —
+e.g. backdrop-blur in Bootstrap/Vuetify) — no extra logic.
 
-اگه فایلی برای یه فریم‌ورک هنوز اضافه نشده باشه، `cardRegistry.ts`
-خودکار متن placeholder («در انتظار دریافت کد...») رو نشون می‌ده — پس
-لازم نیست فایل خالی بسازی، فقط وقتی کد واقعی رو داری فایل رو اضافه کن.
+If a file for a given framework hasn't been added yet, `cardRegistry.ts`
+automatically shows placeholder text ("Waiting to receive the code...") —
+so there's no need to create an empty file, just add the file once you
+have the real code.
 
-برای اضافه‌کردن کارت‌های بعدی (۲ تا ۱۲) کافیه همین سه فایل رو با شماره‌ی
-درست بسازی؛ نیازی به تغییر `cardRegistry.ts` نیست، چون `import.meta.glob`
-همه‌شون رو خودکار پیدا می‌کنه.
+To add the remaining cards (2 through 12), just create these same three
+files with the correct number; there's no need to change `cardRegistry.ts`,
+since `import.meta.glob` finds all of them automatically.

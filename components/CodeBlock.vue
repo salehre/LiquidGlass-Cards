@@ -36,7 +36,7 @@ async function copyCode() {
     <div class="code-header">
       <span class="code-lang">{{ langLabel }}</span>
       <button type="button" class="copy-btn" @click="copyCode">
-        {{ copied ? 'کپی شد ✓' : 'کپی کد' }}
+        {{ copied ? 'Copied ✓' : 'Copy code' }}
       </button>
     </div>
     <pre class="code-pre"><code>{{ code }}</code></pre>
