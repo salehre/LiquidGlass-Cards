@@ -41,7 +41,7 @@
   width: 400px;
   max-width: 100%;
   height: 300px;
-  border-radius: 28px;
+  border-radius: 14px;
   isolation: isolate;
   box-shadow: 0px 0px 21px -8px rgba(255, 255, 255, 0.3);
   cursor: pointer;
@@ -52,7 +52,7 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  border-radius: 28px;
+  border-radius: 14px;
   box-shadow: inset 0 0 5px -8px rgba(255, 255, 255, 0.7);
   background-color: rgba(255, 255, 255, 0);
   pointer-events: none;
@@ -63,7 +63,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  border-radius: 28px;
+  border-radius: 14px;
   backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
   filter: url(#glass-distortion);

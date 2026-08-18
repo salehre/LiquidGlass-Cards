@@ -87,7 +87,7 @@ async function copyCode() {
 .code-pre {
   margin: 0;
   padding: 1rem;
-  max-height: 260px;
+  max-height: 400px;
   overflow: auto;
   font-family: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.78rem;
