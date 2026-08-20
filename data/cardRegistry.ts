@@ -4,6 +4,14 @@ import { pendingCode } from './code/pending'
 import { card01Code } from './code/card-01'
 import { card02Code } from './code/card-02'
 import { card03Code } from './code/card-03'
+import { card04Code } from './code/card-04'
+import { card05Code } from './code/card-05'
+import { card06Code } from './code/card-06'
+import { card07Code } from './code/card-07'
+import { card08Code } from './code/card-08'
+import { card09Code } from './code/card-09'
+import { card10Code } from './code/card-10'
+import { card11Code } from './code/card-11'
 
 import Card01 from '~/components/cards/Card01.vue'
 import Card02 from '~/components/cards/Card02.vue'
@@ -26,13 +34,13 @@ export const cardRegistry: CardEntry[] = [
   { id: 1, name: 'Liquid Crystal', ready: true, component: markRaw(Card01), code: card01Code },
   { id: 2, name: 'Fluid Amber', ready: true, component: markRaw(Card02), code: card02Code },
   { id: 3, name: 'Ice Ripple', ready: true, component: markRaw(Card03), code: card03Code },
-  { id: 4, name: 'Mercury Drop', ready: false, component: markRaw(Card04), code: pendingCode },
-  { id: 5, name: 'Ocean Wave', ready: false, component: markRaw(Card05), code: pendingCode },
-  { id: 6, name: 'Crystal Mist', ready: false, component: markRaw(Card06), code: pendingCode },
-  { id: 7, name: 'Molten Glass', ready: false, component: markRaw(Card07), code: pendingCode },
-  { id: 8, name: 'Silk Veil', ready: false, component: markRaw(Card08), code: pendingCode },
-  { id: 9, name: 'Plasma Flow', ready: false, component: markRaw(Card09), code: pendingCode },
-  { id: 10, name: 'Frost Lens', ready: false, component: markRaw(Card10), code: pendingCode },
-  { id: 11, name: 'Aurora Gel', ready: false, component: markRaw(Card11), code: pendingCode },
+  { id: 4, name: 'Mercury Drop', ready: true, component: markRaw(Card04), code: card04Code },
+  { id: 5, name: 'Ocean Wave', ready: true, component: markRaw(Card05), code: card05Code },
+  { id: 6, name: 'Crystal Mist', ready: true, component: markRaw(Card06), code: card06Code },
+  { id: 7, name: 'Molten Glass', ready: true, component: markRaw(Card07), code: card07Code },
+  { id: 8, name: 'Silk Veil', ready: true, component: markRaw(Card08), code: card08Code },
+  { id: 9, name: 'Plasma Flow', ready: true, component: markRaw(Card09), code: card09Code },
+  { id: 10, name: 'Frost Lens', ready: true, component: markRaw(Card10), code: card10Code },
+  { id: 11, name: 'Aurora Gel', ready: true, component: markRaw(Card11), code: card11Code },
   { id: 12, name: 'Nebula Prism', ready: false, component: markRaw(Card12), code: pendingCode },
 ]
