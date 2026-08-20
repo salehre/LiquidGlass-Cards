@@ -28,7 +28,7 @@ const { activeMeta } = useFrameworkTheme()
 
 <style scoped>
 .page-inner {
-  max-width: 1100px;
+  max-width: 1320px;
   margin: 0 auto;
 }
 
@@ -55,7 +55,7 @@ const { activeMeta } = useFrameworkTheme()
 
 .generator-grid {
   display: grid;
-  grid-template-columns: 540px 1fr;
+  grid-template-columns: 640px 1fr;
   gap: 1.5rem;
   align-items: start;
 }

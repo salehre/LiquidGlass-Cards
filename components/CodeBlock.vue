@@ -40,7 +40,7 @@ onMounted(() => {
     <div class="code-header">
       <span class="code-lang">{{ langLabel }}</span>
       <button type="button" class="copy-btn" @click="copyCode" data-cuelume-press data-cuelume-release>
-        {{ copied ? 'Copied ✓' : 'Copy code' }}
+        {{ copied ? 'Copied ✓' : 'Copy' }}
       </button>
     </div>
     <pre class="code-pre"><code>{{ code }}</code></pre>
@@ -49,7 +49,7 @@ onMounted(() => {
 
 <style scoped>
 .code-box {
-  border-radius: 1.25rem;
+  border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(0, 0, 0, 0.35);
   overflow: hidden;
@@ -79,7 +79,7 @@ onMounted(() => {
   font-size: 0.72rem;
   font-weight: 600;
   padding: 0.3rem 0.7rem;
-  border-radius: 0.6rem;
+  border-radius: 3px;
   cursor: pointer;
   transition: background 0.2s ease;
 }

@@ -93,7 +93,7 @@ function shuffleBackground() {
 
 <style scoped>
 .panel {
-  border-radius: 1.75rem;
+  border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(24px);
@@ -117,8 +117,8 @@ function shuffleBackground() {
 .toggle-group {
   display: inline-flex;
   gap: 0.25rem;
-  padding: 0.25rem;
-  border-radius: 999px;
+  padding: 0.35rem;
+  border-radius: 6px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -126,10 +126,10 @@ function shuffleBackground() {
 .toggle-btn {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.35rem;
   padding: 0.5rem 1rem;
   border: none;
-  border-radius: 999px;
+  border-radius: 3px;
   background: transparent;
   color: rgba(245, 246, 250, 0.55);
   font-size: 0.8rem;
@@ -179,12 +179,12 @@ function shuffleBackground() {
 
 .preview-stage {
   position: relative;
-  min-height: 460px;
+  min-height: 540px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: 1.25rem;
+  border-radius: 6px;
   padding: 2rem;
 }
 
