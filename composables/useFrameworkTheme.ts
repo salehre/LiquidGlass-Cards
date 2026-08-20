@@ -6,13 +6,9 @@ export type FrameworkId = 'bootstrap' | 'tailwind' | 'vuetify'
 export interface FrameworkMeta {
   id: FrameworkId
   label: string
-  /** solid accent color used for buttons, borders, active states */
   color: string
-  /** same color as "r, g, b" so it can be used inside rgba() */
   colorRgb: string
-  /** heading shown in the dynamic content area */
   title: string
-  /** description shown under the heading */
   description: string
 }
 
@@ -46,10 +42,6 @@ export const frameworks: FrameworkMeta[] = [
   },
 ]
 
-/**
- * Shared, SSR-safe global state (Nuxt's useState) so the header buttons in
- * app.vue and any page/component can read & write the same active framework.
- */
 export function useFrameworkTheme() {
   const activeFramework = useState<FrameworkId>('activeFramework', () => 'tailwind')
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
-import { bind } from 'cuelume'
-import type { FrameworkId } from '~/composables/useFrameworkTheme'
+import {computed, ref, onMounted} from 'vue'
+import {bind} from "cuelume";
+import type {FrameworkId} from '~/composables/useFrameworkTheme'
 
 const props = defineProps<{
   code: string
@@ -21,32 +21,25 @@ const langLabel = computed(() => {
 
 const copied = ref(false)
 
-onMounted(() => {
-  bind()
-})
-
 async function copyCode() {
   try {
     await navigator.clipboard.writeText(props.code)
     copied.value = true
     setTimeout(() => (copied.value = false), 1600)
-  } catch {
-    // clipboard API unavailable — ignore silently
-  }
+  } catch {}
 }
+
+onMounted(() => {
+  bind()
+})
+
 </script>
 
 <template>
   <div class="code-box">
     <div class="code-header">
       <span class="code-lang">{{ langLabel }}</span>
-      <button
-          type="button"
-          class="copy-btn"
-          data-cuelume-press
-          data-cuelume-release
-          @click="copyCode"
-      >
+      <button type="button" class="copy-btn" @click="copyCode" data-cuelume-press data-cuelume-release>
         {{ copied ? 'Copied ✓' : 'Copy code' }}
       </button>
     </div>

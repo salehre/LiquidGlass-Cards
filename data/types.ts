@@ -9,6 +9,5 @@ export interface CardEntry {
   name: string
   ready: boolean
   component: Component
-  /** Same UI, three implementations — see data/code/card-XX.ts */
   code: CardFrameworkCode
 }
