@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {nextTick, onMounted, ref, watch} from 'vue'
+import {nextTick, onMounted, onUnmounted, ref, watch} from 'vue'
 import {useFrameworkTheme} from '~/composables/useFrameworkTheme'
 import { Icon } from "@iconify/vue";
 
@@ -9,18 +9,25 @@ const switchRef = ref<HTMLElement | null>(null)
 const indicatorRef = ref<HTMLElement | null>(null)
 const tabRefs = new Map<string, HTMLElement>()
 
+// آیدی تایمر فاز ۲ که در حال انتظاره - برای کنسل کردنش موقع کلیک سریع بعدی
+let settleTimeout: ReturnType<typeof window.setTimeout> | null = null
+
 function setTabRef(el: Element | null, id: string) {
   if (el instanceof HTMLElement) tabRefs.set(id, el)
 }
 
-// جابه‌جایی  ریسایز پیل روی تب فعال. jelly=true یه فاز کشش سریع
-// در جهت حرکت اضافه می‌کنه، بعد با overshoot الاستیک سرجاش می‌شینه
-// (دقیقاً رفتار react-native-jelly-tabs).
 function moveIndicator(jelly: boolean) {
   const track = switchRef.value
   const indicator = indicatorRef.value
   const tab = tabRefs.get(activeFramework.value)
   if (!track || !indicator || !tab) return
+
+  // هر تایمر فاز ۲ قبلی که هنوز در انتظاره رو کنسل کن
+  // تا موقعیت/عرض تب قدیمی رو روی انیمیشن جدید override نکنه
+  if (settleTimeout !== null) {
+    window.clearTimeout(settleTimeout)
+    settleTimeout = null
+  }
 
   const trackRect = track.getBoundingClientRect()
   const tabRect = tab.getBoundingClientRect()
@@ -33,7 +40,7 @@ function moveIndicator(jelly: boolean) {
     indicator.style.transition = 'none'
     indicator.style.transform = `translateX(${x}px)`
     indicator.style.width = `${width}px`
-    void indicator.offsetWidth // force reflow قبل از فعال‌سازی دوباره‌ی transition
+    void indicator.offsetWidth
     indicator.style.transition = ''
     return
   }
@@ -42,7 +49,6 @@ function moveIndicator(jelly: boolean) {
   const prevWidth = indicator.getBoundingClientRect().width
   const movingRight = x > prevX
 
-  // فاز ۱ (کشش سریع): لبه‌ی عقب می‌مونه، لبه‌ی جلو می‌کشه سمت مقصد
   indicator.style.transition = 'transform 0.12s ease-out, width 0.12s ease-out'
   if (movingRight) {
     indicator.style.transform = `translateX(${prevX}px)`
@@ -52,16 +58,25 @@ function moveIndicator(jelly: boolean) {
     indicator.style.width = `${prevX + prevWidth - x}px`
   }
 
-  window.setTimeout(() => {
-    // فاز ۲ (ست‌شدن الاستیک): برمی‌گرده به سایز/موقعیت واقعی با overshoot
+  settleTimeout = window.setTimeout(() => {
     indicator.style.transition =
         'transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)'
     indicator.style.transform = `translateX(${x}px)`
     indicator.style.width = `${width}px`
+    settleTimeout = null
   }, 120)
 }
 
+const links = [
+  { label: 'GitHub', href: 'https://github.com/salehre', icon: 'mdi:github' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/saleh-rezaei-1985b5415/', icon: 'mdi:linkedin' },
+  { label: 'Gmail', href: 'mailto:salehrezaeipoor123@gmail.com', icon: 'tabler:brand-gmail' },
+]
+
 onMounted(() => nextTick(() => moveIndicator(false)))
+onUnmounted(() => {
+  if (settleTimeout !== null) window.clearTimeout(settleTimeout)
+})
 watch(activeFramework, () => nextTick(() => moveIndicator(true)))
 </script>
 
@@ -111,9 +126,16 @@ watch(activeFramework, () => nextTick(() => moveIndicator(true)))
     </svg>
 
     <header class="top-header">
-      <div class="brand">
-        <span class="brand-dot"/>
-        <span class="brand-name">Aether Cards</span>
+      <div class="flex flex-wrap gap-3">
+        <a
+            v-for="link in links"
+            :key="link.label"
+            :href="link.href"
+            target="_blank"
+            class="social group inline-flex h-11 w-11 items-center"
+        >
+          <Icon :icon="link.icon" class=" text-xl h-8 w-8"/>
+        </a>
       </div>
 
       <div ref="switchRef" class="framework-switch" role="tablist">
@@ -146,7 +168,7 @@ watch(activeFramework, () => nextTick(() => moveIndicator(true)))
     <a href="https://www.coffeete.ir/salehrezaei" target="_blank" class="support-btn font-semibold text-lg "
        aria-label="Support">
       <Icon icon="tabler:coffee" color="#F26C50" class="support-icon" width="22" height="22"/>
-      support us
+      support
     </a>
   </div>
 </template>
@@ -163,30 +185,19 @@ watch(activeFramework, () => nextTick(() => moveIndicator(true)))
   gap: 1rem;
 }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-weight: 700;
-  font-size: 1.15rem;
-  color: #fff;
+.social{
+  color: #ececec;
 }
-
-.brand-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--accent, #7c3aed);
-  box-shadow: 0 0 12px rgba(var(--accent-rgb, 124, 58, 237), 0.8);
-  transition: background 0.25s ease, box-shadow 0.25s ease;
+.social:hover{
+  color: var(--accent, #7c3aed);
 }
 
 .framework-switch {
   display: inline-flex;
   position: relative;
   gap: 0.35rem;
-  padding: 0.3rem;
-  border-radius: 9px;
+  padding: 0.3rem 0.35rem;
+  border-radius: 16px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -196,7 +207,7 @@ watch(activeFramework, () => nextTick(() => moveIndicator(true)))
   top: 0.3rem;
   left: 0;
   height: calc(100% - 0.6rem);
-  border-radius: 999px;
+  border-radius: 13px;
   z-index: 0;
   pointer-events: none;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
@@ -207,7 +218,6 @@ watch(activeFramework, () => nextTick(() => moveIndicator(true)))
   position: relative;
   z-index: 1;
   border: none;
-  border-radius: 7px;
   background: transparent;
   color: rgba(245, 246, 250, 0.6);
   font-size: 0.8rem;
@@ -247,7 +257,7 @@ watch(activeFramework, () => nextTick(() => moveIndicator(true)))
 
 .support-btn {
   position: fixed;
-  right: 3.5rem;
+  right: 3rem;
   bottom: 2rem;
   padding: 9px 15px;
   text-decoration: none;
