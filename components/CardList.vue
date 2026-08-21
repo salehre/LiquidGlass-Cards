@@ -95,18 +95,17 @@ const emit = defineEmits<{
   border: 1px solid transparent;
   background: rgba(255, 255, 255, 0.03);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .thumb-btn.active {
   border-color: rgba(var(--accent-rgb, 124, 58, 237), 0.6);
   background: rgba(var(--accent-rgb, 124, 58, 237), 0.12);
-  transition: border-color 0.2s ease, background 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .thumb-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
-  transform: translateY(-6px);
+  transform: translateY(-8px);
 }
 .thumb-frame {
   display: block;
