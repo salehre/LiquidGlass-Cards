@@ -71,7 +71,7 @@ const emit = defineEmits<{
 .thumb-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.45rem;
+  gap: 0rem;   /* بود: 0.2rem */
 }
 
 @media (max-width: 480px) {
@@ -90,16 +90,12 @@ const emit = defineEmits<{
 .thumb-btn {
   display: block;
   width: 80%;
-  /* padding: 0.6rem; */
+  padding: 0.8rem;
   border-radius: 8px;
   border: 1px solid transparent;
   background: rgba(255, 255, 255, 0.03);
   cursor: pointer;
   transition: all 0.2s ease;
-}
-
-.thumb-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
 }
 
 .thumb-btn.active {
@@ -108,10 +104,10 @@ const emit = defineEmits<{
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-.thumb-btn.pending {
-  opacity: 0.5;
+.thumb-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-6px);
 }
-
 .thumb-frame {
   display: block;
   width: 100%;
@@ -128,6 +124,7 @@ const emit = defineEmits<{
 }
 
 .thumb-label {
+  padding-bottom: 12px;
   display: block;
   font-size: 0.78rem;
   font-weight: 700;
