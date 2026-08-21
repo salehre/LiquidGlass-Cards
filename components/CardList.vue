@@ -95,7 +95,7 @@ const emit = defineEmits<{
   border: 1px solid transparent;
   background: rgba(255, 255, 255, 0.03);
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
 }
 
 .thumb-btn.active {
@@ -105,8 +105,28 @@ const emit = defineEmits<{
 }
 
 .thumb-btn:hover {
-  transform: translateY(-8px);
+  animation: thumbBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  border: 1px solid rgba(var(--accent-rgb, 124, 58, 237), 0.6);
 }
+
+@keyframes thumbBounce {
+  0% {
+    transform: translateY(0);
+  }
+  35% {
+    transform: translateY(-8px);
+  }
+  55% {
+    transform: translateY(-2px);
+  }
+  75% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(-4px);
+  }
+}
+
 .thumb-frame {
   display: block;
   width: 100%;
