@@ -40,6 +40,8 @@ const { activeMeta } = useFrameworkTheme()
 .intro-title {
   margin: 0 0 0.5rem;
   font-size: 1.6rem;
+  letter-spacing: 1px;
+  text-transform: capitalize;
   font-weight: 800;
   color: #fff;
   transition: color 0.2s ease;
@@ -49,6 +51,8 @@ const { activeMeta } = useFrameworkTheme()
   margin: 0 auto;
   max-width: 620px;
   font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
   line-height: 1.9;
   color: rgba(245, 246, 250, 0.6);
 }

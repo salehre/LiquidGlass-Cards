@@ -68,7 +68,7 @@ function moveIndicator(jelly: boolean) {
 }
 
 const links = [
-  { label: 'GitHub', href: 'https://github.com/salehre', icon: 'mdi:github' },
+  { label: 'GitHub', href: 'https://github.com/salehre/LiquidGlass-Cards', icon: 'mdi:github' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/saleh-rezaei-1985b5415/', icon: 'mdi:linkedin' },
   { label: 'Gmail', href: 'mailto:salehrezaeipoor123@gmail.com', icon: 'tabler:brand-gmail' },
 ]

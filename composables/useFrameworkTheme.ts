@@ -18,27 +18,27 @@ export const frameworks: FrameworkMeta[] = [
     label: 'Bootstrap',
     color: '#712CF9',
     colorRgb: '124, 58, 237',
-    title: 'Cards with Bootstrap',
+    title: 'with Bootstrap',
     description:
-      'In this mode, the class structure and display components are inspired by the Bootstrap system — a good fit for projects already built on Bootstrap.',
+      'a popular front-end framework that provides responsive layouts and ready-made UI components for building websites quickly.',
   },
   {
     id: 'tailwind',
     label: 'Tailwind',
     color: '#00BCFF',
     colorRgb: '14, 165, 233',
-    title: 'Cards with Tailwind CSS',
+    title: 'with Tailwind CSS',
     description:
-      'All 12 glass card styles in this project are written with Tailwind\'s utility classes — great for quick customization without writing separate CSS.',
+      'An utility-first CSS framework that lets you build custom designs directly using predefined utility classes.',
   },
   {
     id: 'vuetify',
     label: 'Vuetify',
     color: '#42B883',
     colorRgb: '16, 185, 129',
-    title: 'Cards with Vuetify',
+    title: 'with Vuetify',
     description:
-      'This mode is designed around Material Design language and Vuetify\'s ready-made components — a good option for admin apps and dashboards.',
+      'a Material Design component framework for Vue.js that provides ready-to-use, customizable UI components.',
   },
 ]
 
