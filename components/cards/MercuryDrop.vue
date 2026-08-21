@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Icon } from "@iconify/vue";
+
 // Mercury Drop — glass card with its own #glass-distortion-04 SVG filter
 // (very low baseFrequency, high scale — a broad, heavy, mercury-like
 // wobble instead of a fine ripple). See data/code/Mercury_Drop.ts for the
@@ -33,20 +35,14 @@
       <div class="card-header">
         <div class="user-info">
           <div class="avatar">
-            <svg class="avatar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
+            <Icon class="avatar-icon" icon="lucide:user" />
           </div>
           <div class="user-details">
             <p class="user-name">Jane Doe</p>
             <p class="user-role">UX Designer</p>
           </div>
         </div>
-        <svg class="notification-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-        </svg>
+        <Icon class="notification-icon" icon="lucide:bell" />
       </div>
       <div class="card-body">
         <h3 class="card-title">Styled Component</h3>

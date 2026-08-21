@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useFrameworkTheme } from '~/composables/useFrameworkTheme'
+import { Icon } from "@iconify/vue";
 
 const { activeFramework, activeMeta, frameworks, setFramework } = useFrameworkTheme()
 </script>
@@ -81,12 +82,9 @@ const { activeFramework, activeMeta, frameworks, setFramework } = useFrameworkTh
       <p class="footer-text">powered by <span class="author"> Saleh Rezaei</span></p>
     </footer>
 
-    <a href="#" class="support-btn" aria-label="Support">
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4" />
-        <line x1="12" y1="17" x2="12.01" y2="17" />
-      </svg>
+    <a href="https://www.coffeete.ir/salehrezaei" target="_blank" class="support-btn font-semibold text-lg " aria-label="Support">
+      <Icon icon="tabler:coffee" color="#F26C50" class="support-icon" width="22" height="22" />
+      support us
     </a>
   </div>
 </template>
@@ -125,7 +123,7 @@ const { activeFramework, activeMeta, frameworks, setFramework } = useFrameworkTh
   display: inline-flex;
   gap: 0.35rem;
   padding: 0.3rem;
-  border-radius: 999px;
+  border-radius: 9px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -133,7 +131,7 @@ const { activeFramework, activeMeta, frameworks, setFramework } = useFrameworkTh
 .fw-btn {
   padding: 0.5rem 1.1rem;
   border: none;
-  border-radius: 999px;
+  border-radius: 7px;
   background: transparent;
   color: rgba(245, 246, 250, 0.6);
   font-size: 0.8rem;
@@ -174,28 +172,27 @@ const { activeFramework, activeMeta, frameworks, setFramework } = useFrameworkTh
 
 .support-btn {
   position: fixed;
-  right: 1.5rem;
-  bottom: 1.5rem;
+  right: 3.5rem;
+  bottom: 2rem;
+  padding: 9px 15px;
+  text-decoration: none;
   z-index: 50;
-  width: 52px;
-  height: 52px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9px;
+  background: #efe2d1;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #fff;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  color: #1c1b1b;
   transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 
 .support-btn:hover {
-  transform: translateY(-2px);
-  background: var(--accent, #7c3aed);
-  box-shadow: 0 10px 28px rgba(var(--accent-rgb, 124, 58, 237), 0.5);
+  transform: translateY(-1px);
+}
+
+.support-icon{
+  margin-top: 1px;
+  margin-right: 2px;
 }
 
 .author{

@@ -66,12 +66,7 @@ function shuffleBackground() {
         title="Shuffle background"
         @click="shuffleBackground"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="m18 4 3 3-3 3" />
-          <path d="M2 7h5c1.5 0 2.5.5 3.5 2l5 8c1 1.5 2 2 3.5 2h3" />
-          <path d="m18 20 3-3-3-3" />
-          <path d="M2 17h5c1.5 0 2.5-.5 3.5-2M13.5 8.5c1-1.5 2-2 3.5-2H21" />
-        </svg>
+        <Icon icon="lucide:shuffle" width="18" height="18" />
       </button>
     </div>
 
