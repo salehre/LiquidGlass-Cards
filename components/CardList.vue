@@ -71,7 +71,6 @@ const emit = defineEmits<{
 .thumb-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0rem;   /* بود: 0.2rem */
 }
 
 @media (max-width: 480px) {
@@ -132,13 +131,11 @@ const emit = defineEmits<{
   width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 8px;
-  background:
-      radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.02) 55%, transparent 75%),
-      #101219;
+  background: #161a23;
   box-shadow:
-      inset 0 0 28px rgba(255, 255, 255, 0.05),
-      inset 0 1px 0 rgba(255, 255, 255, 0.07),
-      0 0 26px rgba(255, 255, 255, 0.05);
+      0 14px 30px rgba(255, 255, 255, 0.1),
+      0 4px 14px rgba(255, 255, 255, 0.08),
+      0 0 26px rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.07);
 }
 

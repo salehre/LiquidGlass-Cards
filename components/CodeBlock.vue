@@ -25,7 +25,7 @@ async function copyCode() {
   try {
     await navigator.clipboard.writeText(props.code)
     copied.value = true
-    setTimeout(() => (copied.value = false), 1600)
+    setTimeout(() => (copied.value = false), 800)
   } catch {}
 }
 
