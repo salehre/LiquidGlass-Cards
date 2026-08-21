@@ -70,15 +70,17 @@ function shuffleBackground() {
       </button>
     </div>
 
-    <div v-if="view === 'preview'" class="preview-stage">
-      <div class="preview-bg" :style="{ backgroundImage: `url('${currentBg}')` }" />
-      <div class="preview-overlay" />
-      <div class="relative z-10 flex w-full items-center justify-center">
-        <component :is="entry.component" />
+    <div class="stage-content">
+      <div v-if="view === 'preview'" class="preview-stage">
+        <div class="preview-bg" :style="{ backgroundImage: `url('${currentBg}')` }" />
+        <div class="preview-overlay" />
+        <div class="relative z-10 flex w-full items-center justify-center">
+          <component :is="entry.component" />
+        </div>
       </div>
-    </div>
 
-    <CodeBlock v-else :code="activeCode" :framework="activeFramework" />
+      <CodeBlock v-else :code="activeCode" :framework="activeFramework" />
+    </div>
   </div>
 </template>
 
@@ -152,20 +154,20 @@ function shuffleBackground() {
   transition: all 0.2s ease;
 }
 
-.shuffle-btn svg {
-  width: 16px;
-  height: 16px;
-}
-
 .shuffle-btn:hover {
   background: rgba(var(--accent-rgb, 124, 58, 237), 0.25);
   border-color: rgba(var(--accent-rgb, 124, 58, 237), 0.5);
   color: #fff;
 }
 
+.stage-content {
+  height: 540px;
+}
+
 .preview-stage {
   position: relative;
-  min-height: 540px;
+  height: 100%;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;

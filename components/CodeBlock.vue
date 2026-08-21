@@ -49,6 +49,10 @@ onMounted(() => {
 
 <style scoped>
 .code-box {
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(0, 0, 0, 0.35);
@@ -91,7 +95,9 @@ onMounted(() => {
 .code-pre {
   margin: 0;
   padding: 1rem;
-  max-height: 400px;
+  box-sizing: border-box;
+  flex: 1;
+  min-height: 0;
   overflow: auto;
   font-family: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.78rem;
