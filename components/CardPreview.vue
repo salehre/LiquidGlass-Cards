@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import type { CardEntry } from '~/data/cardRegistry'
 import { useFrameworkTheme } from '~/composables/useFrameworkTheme'
+import { Icon } from '@iconify/vue';
 
 const props = defineProps<{
   entry: CardEntry
@@ -41,12 +42,9 @@ function shuffleBackground() {
           class="toggle-btn"
           :class="{ active: view === 'preview' }"
           @click="view = 'preview'"
+          title="preview"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z" />
-            <circle cx="12" cy="12" r="3" />
-          </svg>
-          Preview
+          <Icon icon="iconoir:play" class="text-lg" />
         </button>
         <button
           type="button"
@@ -55,11 +53,9 @@ function shuffleBackground() {
           class="toggle-btn"
           :class="{ active: view === 'code' }"
           @click="view = 'code'"
+          title="code"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="m8 6-6 6 6 6M16 6l6 6-6 6" />
-          </svg>
-          Code
+         <Icon icon="mdi:code" class="text-lg" />
         </button>
       </div>
 
@@ -117,7 +113,7 @@ function shuffleBackground() {
 .toggle-group {
   display: inline-flex;
   gap: 0.25rem;
-  padding: 0.35rem;
+  padding: 0.25rem;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -127,7 +123,7 @@ function shuffleBackground() {
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 0.6rem;
   border: none;
   border-radius: 3px;
   background: transparent;
@@ -136,11 +132,6 @@ function shuffleBackground() {
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
-}
-
-.toggle-btn svg {
-  width: 14px;
-  height: 14px;
 }
 
 .toggle-btn:hover {

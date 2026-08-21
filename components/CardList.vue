@@ -18,34 +18,42 @@ const emit = defineEmits<{
     </div>
 
     <div class="thumb-grid">
-      <button
-        v-for="entry in cardRegistry"
-        :key="entry.id"
-        type="button"
-        class="thumb-btn"
-        :class="{ active: modelValue === entry.id, pending: !entry.ready }"
-        @click="emit('update:modelValue', entry.id)"
+      <div
+          v-for="entry in cardRegistry"
+          :key="entry.id"
+          class="thumb-item"
       >
-        <span class="thumb-frame" /> 
-        <span class="thumb-label">{{ entry.name }}</span>
-      </button>
+        <button
+            type="button"
+            class="thumb-btn"
+            :class="{ active: modelValue === entry.id, pending: !entry.ready }"
+            @click="emit('update:modelValue', entry.id)"
+        >
+          <span class="thumb-frame" />
+        </button>
+        <span
+            class="thumb-label"
+            :class="{ active: modelValue === entry.id }"
+            @click="emit('update:modelValue', entry.id)"
+        >{{ entry.name }}</span>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
 .panel {
-  border-radius: 1.75rem;
+  border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
-  padding: 1.5rem;
+  padding: 1rem;
 }
 
 .panel-header {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.95rem;
 }
 
 .panel-title {
@@ -63,22 +71,27 @@ const emit = defineEmits<{
 .thumb-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.75rem;
+  gap: 0.45rem;
 }
 
 @media (max-width: 480px) {
   .thumb-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-.thumb-btn {
+.thumb-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem;
-  border-radius: 10px;
+  gap: 0.6rem;
+}
+
+.thumb-btn {
+  display: block;
+  width: 80%;
+  /* padding: 0.6rem; */
+  border-radius: 8px;
   border: 1px solid transparent;
   background: rgba(255, 255, 255, 0.03);
   cursor: pointer;
@@ -103,22 +116,28 @@ const emit = defineEmits<{
   display: block;
   width: 100%;
   aspect-ratio: 1 / 1;
-  border-radius: 1.25rem;
+  border-radius: 8px;
   background:
-    radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.02) 55%, transparent 75%),
-    #101219;
+      radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.02) 55%, transparent 75%),
+      #101219;
   box-shadow:
-    inset 0 0 28px rgba(255, 255, 255, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
-    0 0 26px rgba(255, 255, 255, 0.05);
+      inset 0 0 28px rgba(255, 255, 255, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.07),
+      0 0 26px rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .thumb-label {
+  display: block;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.01em;
   color: rgba(245, 246, 250, 0.9);
   text-align: center;
+  cursor: pointer;
+}
+
+.thumb-label.active {
+  color: #fff;
 }
 </style>

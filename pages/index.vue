@@ -28,7 +28,7 @@ const { activeMeta } = useFrameworkTheme()
 
 <style scoped>
 .page-inner {
-  max-width: 1320px;
+  max-width: 1250px;
   margin: 0 auto;
 }
 
