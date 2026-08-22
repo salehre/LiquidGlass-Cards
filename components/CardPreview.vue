@@ -75,7 +75,7 @@ function shuffleBackground() {
         <div class="preview-bg" :style="{ backgroundImage: `url('${currentBg}')` }" />
         <div class="preview-overlay" />
         <div class="relative z-10 flex w-full items-center justify-center">
-          <component :is="entry.component" />
+          <GlassCard :config="entry.visual" />
         </div>
       </div>
 

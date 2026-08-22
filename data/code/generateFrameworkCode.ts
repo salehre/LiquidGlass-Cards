@@ -8,6 +8,8 @@ export interface CardVisualConfig {
   blur: number
   insetShadow: string
   sharedFilter?: boolean
+  /** Defaults to 28 (px) when omitted. Liquid Crystal is the one card that overrides this. */
+  borderRadius?: number
 }
 
 function filterBlock(cfg: CardVisualConfig): string {
@@ -37,7 +39,8 @@ function filterComment(cfg: CardVisualConfig): string {
 }
 
 function generateTailwind(cfg: CardVisualConfig): string {
-  return `${filterComment(cfg)}${filterBlock(cfg)}<div class="${cfg.slug} relative w-full max-w-[400px] h-[300px] rounded-[28px] isolate cursor-pointer">
+  const radius = cfg.borderRadius ?? 28
+  return `${filterComment(cfg)}${filterBlock(cfg)}<div class="${cfg.slug} relative w-full max-w-[400px] h-[300px] rounded-[${radius}px] isolate cursor-pointer">
   <div class="relative z-10 flex h-full w-full flex-col justify-between p-6 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
     <div class="flex items-start justify-between">
       <div class="flex items-center gap-3">
@@ -73,7 +76,7 @@ function generateTailwind(cfg: CardVisualConfig): string {
   position: absolute;
   inset: 0;
   z-index: 0;
-  border-radius: 28px;
+  border-radius: ${radius}px;
   box-shadow: inset ${cfg.insetShadow} rgba(255, 255, 255, 0.7);
   pointer-events: none;
 }
@@ -82,7 +85,7 @@ function generateTailwind(cfg: CardVisualConfig): string {
   position: absolute;
   inset: 0;
   z-index: -1;
-  border-radius: 28px;
+  border-radius: ${radius}px;
   backdrop-filter: blur(${cfg.blur}px);
   -webkit-backdrop-filter: blur(${cfg.blur}px);
   filter: url(#${cfg.filterId});

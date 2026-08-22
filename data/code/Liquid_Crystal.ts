@@ -1,7 +1,7 @@
-import { generateAllFrameworks } from './generateFrameworkCode'
+import type { CardVisualConfig } from './generateFrameworkCode'
 
 /** Liquid Crystal — uses the shared #glass-distortion filter from app.vue. */
-export const LiquidCrystal = generateAllFrameworks({
+export const liquidCrystalConfig: CardVisualConfig = {
   slug: 'liquid-crystal-card',
   filterId: 'glass-distortion',
   baseFrequency: 0.012,
@@ -9,4 +9,5 @@ export const LiquidCrystal = generateAllFrameworks({
   blur: 0,
   insetShadow: '0 0 5px -8px',
   sharedFilter: true,
-})
+  borderRadius: 14,
+}

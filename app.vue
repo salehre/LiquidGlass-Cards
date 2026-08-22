@@ -9,7 +9,8 @@ const switchRef = ref<HTMLElement | null>(null)
 const indicatorRef = ref<HTMLElement | null>(null)
 const tabRefs = new Map<string, HTMLElement>()
 
-// آیدی تایمر فاز ۲ که در حال انتظاره - برای کنسل کردنش موقع کلیک سریع بعدی
+// id of the pending "settle" phase timer - used to cancel it if the user
+// clicks another tab again before the settle animation finishes
 let settleTimeout: ReturnType<typeof window.setTimeout> | null = null
 
 function setTabRef(el: Element | null, id: string) {
@@ -22,8 +23,8 @@ function moveIndicator(jelly: boolean) {
   const tab = tabRefs.get(activeFramework.value)
   if (!track || !indicator || !tab) return
 
-  // هر تایمر فاز ۲ قبلی که هنوز در انتظاره رو کنسل کن
-  // تا موقعیت/عرض تب قدیمی رو روی انیمیشن جدید override نکنه
+  // cancel any previous pending settle timer so the old tab's
+  // position/width doesn't override the new animation
   if (settleTimeout !== null) {
     window.clearTimeout(settleTimeout)
     settleTimeout = null

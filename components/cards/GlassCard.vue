@@ -1,20 +1,33 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
+import { computed } from 'vue'
+import { Icon } from '@iconify/vue'
+import type { CardVisualConfig } from '~/data/code/generateFrameworkCode'
 
-// Nebula Prism — glass card with its own #glass-distortion-12 SVG filter
-// (high baseFrequency/scale with a heavier 16px backdrop blur — a bold,
-// swirling nebula-like distortion). See data/code/Nebula_Prism.ts for the
-// per-framework markup.
+const props = defineProps<{
+  config: CardVisualConfig
+}>()
+
+// CSS custom properties for the parts that vary per card. Bound via v-bind()
+// in <style scoped> below, so this markup/style pair is the single source of
+// truth for how a card actually renders (the framework code snippets in
+// data/code/generateFrameworkCode.ts are generated from the same config).
+const radius = computed(() => `${props.config.borderRadius ?? 28}px`)
+const blurPx = computed(() => `${props.config.blur}px`)
+const insetShadow = computed(() => `inset ${props.config.insetShadow} rgba(255, 255, 255, 0.7)`)
+const filterUrl = computed(() => `url(#${props.config.filterId})`)
 </script>
 
 <template>
-  <div class="nebula-prism-card">
-    <svg width="0" height="0" style="position: absolute">
+  <div class="glass-card">
+    <!-- Cards with sharedFilter: true reuse the #glass-distortion filter
+         defined once in app.vue. Every other card ships its own filter with
+         its own baseFrequency/scale, so it travels with the card. -->
+    <svg v-if="!config.sharedFilter" width="0" height="0" style="position: absolute">
       <defs>
-        <filter id="glass-distortion-12" x="0%" y="0%" width="100%" height="100%">
+        <filter :id="config.filterId" x="0%" y="0%" width="100%" height="100%">
           <feTurbulence
             type="fractalNoise"
-            baseFrequency="0.028 0.028"
+            :baseFrequency="`${config.baseFrequency} ${config.baseFrequency}`"
             numOctaves="2"
             seed="92"
             result="noise"
@@ -23,7 +36,7 @@ import { Icon } from "@iconify/vue";
           <feDisplacementMap
             in="SourceGraphic"
             in2="blurred"
-            scale="130"
+            :scale="config.scale"
             xChannelSelector="R"
             yChannelSelector="G"
           />
@@ -55,38 +68,38 @@ import { Icon } from "@iconify/vue";
 </template>
 
 <style scoped>
-.nebula-prism-card {
+.glass-card {
   position: relative;
   width: 400px;
   max-width: 100%;
   height: 300px;
-  border-radius: 28px;
+  border-radius: v-bind(radius);
   isolation: isolate;
-  box-shadow: 0px 0px 21px -8px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 21px -8px rgba(255, 255, 255, 0.3);
   cursor: pointer;
 }
 
-.nebula-prism-card::before {
+.glass-card::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 0;
-  border-radius: 28px;
-  box-shadow: inset 0 0 9px -7px rgba(255, 255, 255, 0.7);
+  border-radius: v-bind(radius);
+  box-shadow: v-bind(insetShadow);
   background-color: rgba(255, 255, 255, 0);
   pointer-events: none;
 }
 
-.nebula-prism-card::after {
+.glass-card::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
-  border-radius: 28px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  filter: url(#glass-distortion-12);
-  -webkit-filter: url(#glass-distortion-12);
+  border-radius: v-bind(radius);
+  backdrop-filter: blur(v-bind(blurPx));
+  -webkit-backdrop-filter: blur(v-bind(blurPx));
+  filter: v-bind(filterUrl);
+  -webkit-filter: v-bind(filterUrl);
   isolation: isolate;
   pointer-events: none;
 }
