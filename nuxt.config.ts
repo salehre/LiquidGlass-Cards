@@ -25,6 +25,9 @@ export default defineNuxtConfig({
     vue: {
       template: { transformAssetUrls },
     },
+    build: {
+      cssMinify: 'esbuild',
+    },
   },
 
   css: [
