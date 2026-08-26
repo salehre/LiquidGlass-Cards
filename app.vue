@@ -1,23 +1,142 @@
 <script setup lang="ts">
+import {nextTick, onMounted, onUnmounted, ref, watch} from 'vue'
 import {useFrameworkTheme} from '~/composables/useFrameworkTheme'
 import {useFrameworkLang} from '~/composables/useFrameworkLang'
-import {useJellySwitch} from '~/composables/useJellySwitch'
 import { Icon } from "@iconify/vue";
 
 const {activeFramework, activeMeta, frameworks, setFramework} = useFrameworkTheme()
-const {activeLang, langs, setLang} = useFrameworkLang()
+const {activeLang, activeLangMeta, langs, setLang} = useFrameworkLang()
 
-const {
-  trackRef: switchRef,
-  indicatorRef,
-  setTabRef,
-} = useJellySwitch(activeFramework, frameworks)
+// --- Framework switch (Tailwind / Bootstrap / Vuetify-or-MUI) ---
+const switchRef = ref<HTMLElement | null>(null)
+const indicatorRef = ref<HTMLElement | null>(null)
+const tabRefs = new Map<string, HTMLElement>()
+let settleTimeout: ReturnType<typeof window.setTimeout> | null = null
 
-const {
-  trackRef: langSwitchRef,
-  indicatorRef: langIndicatorRef,
-  setTabRef: setLangTabRef,
-} = useJellySwitch(activeLang, langs)
+function setTabRef(el: Element | null, id: string) {
+  if (el instanceof HTMLElement) tabRefs.set(id, el)
+}
+
+function moveIndicator(jelly: boolean) {
+  const track = switchRef.value
+  const indicator = indicatorRef.value
+  const tab = tabRefs.get(activeFramework.value)
+  if (!track || !indicator || !tab) return
+
+  if (settleTimeout !== null) {
+    window.clearTimeout(settleTimeout)
+    settleTimeout = null
+  }
+
+  const trackRect = track.getBoundingClientRect()
+  const tabRect = tab.getBoundingClientRect()
+  const x = tabRect.left - trackRect.left
+  const width = tabRect.width
+
+  indicator.style.background = activeMeta.value.color
+
+  if (!jelly) {
+    indicator.style.transition = 'none'
+    indicator.style.transform = `translateX(${x}px)`
+    indicator.style.width = `${width}px`
+    void indicator.offsetWidth
+    indicator.style.transition = ''
+    return
+  }
+
+  const prevX = indicator.getBoundingClientRect().left - trackRect.left
+  const prevWidth = indicator.getBoundingClientRect().width
+  const movingRight = x > prevX
+
+  indicator.style.transition = 'transform 0.12s ease-out, width 0.12s ease-out'
+  if (movingRight) {
+    indicator.style.transform = `translateX(${prevX}px)`
+    indicator.style.width = `${x + width - prevX}px`
+  } else {
+    indicator.style.transform = `translateX(${x}px)`
+    indicator.style.width = `${prevX + prevWidth - x}px`
+  }
+
+  settleTimeout = window.setTimeout(() => {
+    indicator.style.transition =
+            'transform 0.3s cubic-bezier(0.22, 1.1, 0.36, 1), width 0.3s cubic-bezier(0.22, 1.1, 0.36, 1)'
+    indicator.style.transform = `translateX(${x}px)`
+    indicator.style.width = `${width}px`
+    settleTimeout = null
+  }, 120)
+}
+
+onMounted(() => nextTick(() => moveIndicator(false)))
+onUnmounted(() => {
+  if (settleTimeout !== null) window.clearTimeout(settleTimeout)
+})
+watch(activeFramework, () => nextTick(() => moveIndicator(true)))
+watch(activeLang, () => nextTick(() => moveIndicator(true)))
+
+// --- Language switch (Vue / React) — identical logic, fully independent state ---
+const langSwitchRef = ref<HTMLElement | null>(null)
+const langIndicatorRef = ref<HTMLElement | null>(null)
+const langTabRefs = new Map<string, HTMLElement>()
+let langSettleTimeout: ReturnType<typeof window.setTimeout> | null = null
+
+function setLangTabRef(el: Element | null, id: string) {
+  if (el instanceof HTMLElement) langTabRefs.set(id, el)
+}
+
+function moveLangIndicator(jelly: boolean) {
+  const track = langSwitchRef.value
+  const indicator = langIndicatorRef.value
+  const tab = langTabRefs.get(activeLang.value)
+  if (!track || !indicator || !tab) return
+
+  if (langSettleTimeout !== null) {
+    window.clearTimeout(langSettleTimeout)
+    langSettleTimeout = null
+  }
+
+  const trackRect = track.getBoundingClientRect()
+  const tabRect = tab.getBoundingClientRect()
+  const x = tabRect.left - trackRect.left
+  const width = tabRect.width
+
+  indicator.style.background = activeLangMeta.value.color
+
+  if (!jelly) {
+    indicator.style.transition = 'none'
+    indicator.style.transform = `translateX(${x}px)`
+    indicator.style.width = `${width}px`
+    void indicator.offsetWidth
+    indicator.style.transition = ''
+    return
+  }
+
+  const prevX = indicator.getBoundingClientRect().left - trackRect.left
+  const prevWidth = indicator.getBoundingClientRect().width
+  const movingRight = x > prevX
+
+  indicator.style.transition = 'transform 0.18s ease-out, width 0.18s ease-out'
+  if (movingRight) {
+    indicator.style.transform = `translateX(${prevX}px)`
+    indicator.style.width = `${x + width - prevX}px`
+  } else {
+    indicator.style.transform = `translateX(${x}px)`
+    indicator.style.width = `${prevX + prevWidth - x}px`
+  }
+
+  langSettleTimeout = window.setTimeout(() => {
+    indicator.style.transition =
+        'transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)'
+    indicator.style.transform = `translateX(${x}px)`
+    indicator.style.width = `${width}px`
+    langSettleTimeout = null
+  }, 120)
+}
+
+onMounted(() => nextTick(() => moveLangIndicator(false)))
+onUnmounted(() => {
+  if (langSettleTimeout !== null) window.clearTimeout(langSettleTimeout)
+})
+watch(activeLang, () => nextTick(() => moveLangIndicator(true)))
 
 const links = [
   { label: 'GitHub', href: 'https://github.com/salehre/LiquidGlass-Cards', icon: 'mdi:github' },
@@ -155,6 +274,10 @@ const links = [
 }
 .social:hover{
   color: var(--accent, #7c3aed);
+}
+
+.content {
+  flex: 1 0 auto;
 }
 
 .switch-group {

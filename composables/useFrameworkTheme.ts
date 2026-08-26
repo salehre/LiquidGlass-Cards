@@ -39,7 +39,7 @@ export const frameworks: FrameworkMeta[] = [
     colorRgb: '16, 185, 129',
     title: 'with Vuetify',
     description:
-      'a Material Design component framework for Vue.js that provides ready-to-use, customizable UI components.',
+      'a popular React UI component library that provides ready-to-use, customizable components based on Google’s Material Design principles.',
   },
 ]
 const vuetifyAsReact: FrameworkMeta = {
