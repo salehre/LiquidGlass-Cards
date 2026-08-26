@@ -2,20 +2,23 @@
 import {computed, ref, onMounted} from 'vue'
 import {bind} from "cuelume";
 import type {FrameworkId} from '~/composables/useFrameworkTheme'
+import type {LangId} from '~/composables/useFrameworkLang'
 
 const props = defineProps<{
   code: string
   framework?: FrameworkId
+  lang?: LangId
 }>()
 
 const langLabel = computed(() => {
+  const isReact = props.lang === 'react'
   switch (props.framework) {
     case 'bootstrap':
-      return 'HTML + Bootstrap'
+      return isReact ? 'React + Bootstrap' : 'HTML + Bootstrap'
     case 'vuetify':
-      return 'Vue + Vuetify'
+      return isReact ? 'React + MUI' : 'Vue + Vuetify'
     default:
-      return 'HTML + Tailwind'
+      return isReact ? 'React + Tailwind' : 'HTML + Tailwind'
   }
 })
 

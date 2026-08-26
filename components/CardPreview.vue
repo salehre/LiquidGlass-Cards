@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import type { CardEntry } from '~/data/cardRegistry'
 import { useFrameworkTheme } from '~/composables/useFrameworkTheme'
+import { useFrameworkLang } from '~/composables/useFrameworkLang'
 import { Icon } from '@iconify/vue';
 
 const props = defineProps<{
@@ -11,8 +12,9 @@ const props = defineProps<{
 const view = ref<'preview' | 'code'>('preview')
 
 const { activeFramework } = useFrameworkTheme()
+const { activeLang } = useFrameworkLang()
 
-const activeCode = computed(() => props.entry.code[activeFramework.value])
+const activeCode = computed(() => props.entry.code[activeLang.value][activeFramework.value])
 
 // Add / rename entries here once the images are in public/image.
 const backgrounds = [
@@ -84,7 +86,7 @@ function shuffleBackground() {
         </div>
       </div>
 
-      <CodeBlock v-else :code="activeCode" :framework="activeFramework" />
+      <CodeBlock v-else :code="activeCode" :framework="activeFramework" :lang="activeLang" />
     </div>
   </div>
 </template>

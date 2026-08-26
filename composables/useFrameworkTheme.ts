@@ -1,5 +1,6 @@
 import { computed } from 'vue'
 import { useState } from '#app'
+import { useFrameworkLang } from './useFrameworkLang'
 
 export type FrameworkId = 'bootstrap' | 'tailwind' | 'vuetify'
 
@@ -42,16 +43,35 @@ export const frameworks: FrameworkMeta[] = [
   },
 ]
 
+// Vuetify has no direct React equivalent, so when the React language is
+// active this stands in for the same tab: same slot in the switch, MUI
+// content and colors instead.
+const vuetifyAsReact: FrameworkMeta = {
+  id: 'vuetify',
+  label: 'MUI',
+  color: '#007FFF',
+  colorRgb: '0, 127, 255',
+  title: 'with MUI (Material UI)',
+  description:
+    "React's Material Design component library — the closest React counterpart to Vuetify, offering ready-to-use, customizable UI components.",
+}
+
 export function useFrameworkTheme() {
   const activeFramework = useState<FrameworkId>('activeFramework', () => 'tailwind')
+  const { activeLang } = useFrameworkLang()
+
+  const displayFrameworks = computed<FrameworkMeta[]>(() =>
+    frameworks.map((fw) => (fw.id === 'vuetify' && activeLang.value === 'react' ? vuetifyAsReact : fw)),
+  )
 
   const activeMeta = computed<FrameworkMeta>(
-    () => frameworks.find((f) => f.id === activeFramework.value) ?? frameworks[1],
+    () =>
+      displayFrameworks.value.find((f) => f.id === activeFramework.value) ?? displayFrameworks.value[1],
   )
 
   function setFramework(id: FrameworkId) {
     activeFramework.value = id
   }
 
-  return { activeFramework, activeMeta, frameworks, setFramework }
+  return { activeFramework, activeMeta, frameworks: displayFrameworks, setFramework }
 }

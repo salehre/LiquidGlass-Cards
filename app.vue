@@ -1,84 +1,29 @@
 <script setup lang="ts">
-import {nextTick, onMounted, onUnmounted, ref, watch} from 'vue'
 import {useFrameworkTheme} from '~/composables/useFrameworkTheme'
+import {useFrameworkLang} from '~/composables/useFrameworkLang'
+import {useJellySwitch} from '~/composables/useJellySwitch'
 import { Icon } from "@iconify/vue";
 
 const {activeFramework, activeMeta, frameworks, setFramework} = useFrameworkTheme()
+const {activeLang, langs, setLang} = useFrameworkLang()
 
-const switchRef = ref<HTMLElement | null>(null)
-const indicatorRef = ref<HTMLElement | null>(null)
-const tabRefs = new Map<string, HTMLElement>()
+const {
+  trackRef: switchRef,
+  indicatorRef,
+  setTabRef,
+} = useJellySwitch(activeFramework, frameworks)
 
-// id of the pending "settle" phase timer - used to cancel it if the user
-// clicks another tab again before the settle animation finishes
-let settleTimeout: ReturnType<typeof window.setTimeout> | null = null
-
-function setTabRef(el: Element | null, id: string) {
-  if (el instanceof HTMLElement) tabRefs.set(id, el)
-}
-
-function moveIndicator(jelly: boolean) {
-  const track = switchRef.value
-  const indicator = indicatorRef.value
-  const tab = tabRefs.get(activeFramework.value)
-  if (!track || !indicator || !tab) return
-
-  // cancel any previous pending settle timer so the old tab's
-  // position/width doesn't override the new animation
-  if (settleTimeout !== null) {
-    window.clearTimeout(settleTimeout)
-    settleTimeout = null
-  }
-
-  const trackRect = track.getBoundingClientRect()
-  const tabRect = tab.getBoundingClientRect()
-  const x = tabRect.left - trackRect.left
-  const width = tabRect.width
-
-  indicator.style.background = activeMeta.value.color
-
-  if (!jelly) {
-    indicator.style.transition = 'none'
-    indicator.style.transform = `translateX(${x}px)`
-    indicator.style.width = `${width}px`
-    void indicator.offsetWidth
-    indicator.style.transition = ''
-    return
-  }
-
-  const prevX = indicator.getBoundingClientRect().left - trackRect.left
-  const prevWidth = indicator.getBoundingClientRect().width
-  const movingRight = x > prevX
-
-  indicator.style.transition = 'transform 0.12s ease-out, width 0.12s ease-out'
-  if (movingRight) {
-    indicator.style.transform = `translateX(${prevX}px)`
-    indicator.style.width = `${x + width - prevX}px`
-  } else {
-    indicator.style.transform = `translateX(${x}px)`
-    indicator.style.width = `${prevX + prevWidth - x}px`
-  }
-
-  settleTimeout = window.setTimeout(() => {
-    indicator.style.transition =
-        'transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)'
-    indicator.style.transform = `translateX(${x}px)`
-    indicator.style.width = `${width}px`
-    settleTimeout = null
-  }, 120)
-}
+const {
+  trackRef: langSwitchRef,
+  indicatorRef: langIndicatorRef,
+  setTabRef: setLangTabRef,
+} = useJellySwitch(activeLang, langs)
 
 const links = [
   { label: 'GitHub', href: 'https://github.com/salehre/LiquidGlass-Cards', icon: 'mdi:github' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/saleh-rezaei-1985b5415/', icon: 'mdi:linkedin' },
   { label: 'Gmail', href: 'mailto:salehrezaeipoor123@gmail.com', icon: 'tabler:brand-gmail' },
 ]
-
-onMounted(() => nextTick(() => moveIndicator(false)))
-onUnmounted(() => {
-  if (settleTimeout !== null) window.clearTimeout(settleTimeout)
-})
-watch(activeFramework, () => nextTick(() => moveIndicator(true)))
 </script>
 
 <template>
@@ -139,21 +84,40 @@ watch(activeFramework, () => nextTick(() => moveIndicator(true)))
         </a>
       </div>
 
-      <div ref="switchRef" class="framework-switch" role="tablist">
-        <span ref="indicatorRef" class="jelly-indicator"/>
-        <button
-            v-for="fw in frameworks"
-            :key="fw.id"
-            :ref="(el) => setTabRef(el as Element, fw.id)"
-            type="button"
-            role="tab"
-            :aria-selected="activeFramework === fw.id"
-            class="fw-btn"
-            :class="{ active: activeFramework === fw.id }"
-            @click="setFramework(fw.id)"
-        >
-          {{ fw.label }}
-        </button>
+      <div class="switch-group">
+        <div ref="langSwitchRef" class="framework-switch" role="tablist">
+          <span ref="langIndicatorRef" class="jelly-indicator"/>
+          <button
+              v-for="lang in langs"
+              :key="lang.id"
+              :ref="(el) => setLangTabRef(el as Element, lang.id)"
+              type="button"
+              role="tab"
+              :aria-selected="activeLang === lang.id"
+              class="fw-btn"
+              :class="{ active: activeLang === lang.id }"
+              @click="setLang(lang.id)"
+          >
+            {{ lang.label }}
+          </button>
+        </div>
+
+        <div ref="switchRef" class="framework-switch" role="tablist">
+          <span ref="indicatorRef" class="jelly-indicator"/>
+          <button
+              v-for="fw in frameworks"
+              :key="fw.id"
+              :ref="(el) => setTabRef(el as Element, fw.id)"
+              type="button"
+              role="tab"
+              :aria-selected="activeFramework === fw.id"
+              class="fw-btn"
+              :class="{ active: activeFramework === fw.id }"
+              @click="setFramework(fw.id)"
+          >
+            {{ fw.label }}
+          </button>
+        </div>
       </div>
     </header>
 
@@ -191,6 +155,13 @@ watch(activeFramework, () => nextTick(() => moveIndicator(true)))
 }
 .social:hover{
   color: var(--accent, #7c3aed);
+}
+
+.switch-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
 }
 
 .framework-switch {
