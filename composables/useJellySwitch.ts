@@ -81,5 +81,8 @@ export function useJellySwitch<T extends string>(activeId: Ref<T>, items: JellyI
   })
   watch(activeId, () => nextTick(() => moveIndicator(true)))
 
+  if (!Array.isArray(items)) {
+    watch(items, () => nextTick(() => moveIndicator(false)))
+  }
   return { trackRef, indicatorRef, setTabRef }
 }

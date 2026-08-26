@@ -21,8 +21,8 @@ export const langs: LangMeta[] = [
   {
     id: 'react',
     label: 'React',
-    color: '#61DAFB',
-    colorRgb: '97, 218, 251',
+    color: '#007FFF',
+    colorRgb: '0, 127, 255',
   },
 ]
 

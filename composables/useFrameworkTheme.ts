@@ -42,10 +42,6 @@ export const frameworks: FrameworkMeta[] = [
       'a Material Design component framework for Vue.js that provides ready-to-use, customizable UI components.',
   },
 ]
-
-// Vuetify has no direct React equivalent, so when the React language is
-// active this stands in for the same tab: same slot in the switch, MUI
-// content and colors instead.
 const vuetifyAsReact: FrameworkMeta = {
   id: 'vuetify',
   label: 'MUI',
