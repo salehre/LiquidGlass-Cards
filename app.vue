@@ -246,7 +246,7 @@ const links = [
 
     <footer class="site-footer">
       <div class="footer-divider"/>
-      <p class="footer-text">powered by <span class="author"> Saleh Rezaei</span></p>
+      <a class="footer-text" target="_blank" href="https://resume-roadmap.vercel.app/fa">Powered By <span class="author"> Saleh Rezaei</span></a>
     </footer>
 
     <a href="https://www.coffeete.ir/salehrezaei" target="_blank" class="support-btn font-semibold text-lg "
@@ -348,6 +348,9 @@ const links = [
   font-size: 0.8rem;
   font-weight: 500;
   color: rgba(245, 246, 250, 0.5);
+  text-decoration: none;
+  display: block;
+  width: 100%;
 }
 
 .support-btn {
