@@ -28,6 +28,7 @@ const { activeMeta } = useFrameworkTheme()
 
 <style scoped>
 .page-inner {
+  width: min(100% - 4rem, 1250px);
   max-width: 1250px;
   margin: 0 auto;
 }
@@ -59,14 +60,37 @@ const { activeMeta } = useFrameworkTheme()
 
 .generator-grid {
   display: grid;
-  grid-template-columns: 640px 1fr;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
   gap: 1.5rem;
   align-items: start;
 }
 
 @media (max-width: 860px) {
+  .page-inner {
+    width: min(100% - 2rem, 680px);
+  }
+
   .generator-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-inner {
+    width: min(100% - 1.5rem, 680px);
+  }
+
+  .intro {
+    margin-bottom: 1.25rem;
+  }
+
+  .intro-title {
+    font-size: 1.35rem;
+  }
+
+  .intro-desc {
+    font-size: 0.82rem;
+    line-height: 1.7;
   }
 }
 </style>

@@ -100,6 +100,7 @@ function shuffleBackground() {
   -webkit-backdrop-filter: blur(24px);
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
   padding: 1.5rem;
+  min-width: 0;
 }
 
 .stage-panel {
@@ -168,7 +169,8 @@ function shuffleBackground() {
 }
 
 .stage-content {
-  height: 540px;
+  height: clamp(360px, 42vw, 540px);
+  min-height: 360px;
 }
 
 .preview-stage {
@@ -181,6 +183,25 @@ function shuffleBackground() {
   overflow: hidden;
   border-radius: 6px;
   padding: 2rem;
+}
+
+@media (max-width: 480px) {
+  .panel {
+    padding: 1rem;
+  }
+
+  .stage-panel {
+    gap: 1rem;
+  }
+
+  .stage-content {
+    height: min(112vw, 430px);
+    min-height: 320px;
+  }
+
+  .preview-stage {
+    padding: 1rem;
+  }
 }
 
 .preview-bg {

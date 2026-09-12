@@ -50,6 +50,7 @@ const emit = defineEmits<{
   -webkit-backdrop-filter: blur(24px);
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
   padding: 1rem;
+  min-width: 0;
 }
 
 .panel-header {
@@ -70,7 +71,8 @@ const emit = defineEmits<{
 
 .thumb-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 0.35rem;
 }
 
 @media (max-width: 480px) {
@@ -148,6 +150,8 @@ const emit = defineEmits<{
   color: rgba(245, 246, 250, 0.9);
   text-align: center;
   cursor: pointer;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .thumb-label.active {

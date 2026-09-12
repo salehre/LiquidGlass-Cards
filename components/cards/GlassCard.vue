@@ -70,9 +70,10 @@ const filterUrl = computed(() => `url(#${props.config.filterId})`)
 <style scoped>
 .glass-card {
   position: relative;
-  width: 400px;
+  width: min(400px, 100%);
   max-width: 100%;
-  height: 300px;
+  aspect-ratio: 4 / 3;
+  height: auto;
   border-radius: v-bind(radius);
   isolation: isolate;
   box-shadow: 0 0 21px -8px rgba(255, 255, 255, 0.3);
@@ -115,6 +116,33 @@ const filterUrl = computed(() => `url(#${props.config.filterId})`)
   padding: 24px;
   color: white;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 480px) {
+  .card-content {
+    padding: 1rem;
+  }
+
+  .user-info {
+    gap: 0.6rem;
+  }
+
+  .avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-description {
+    font-size: 0.78rem;
+  }
+
+  .card-tip {
+    font-size: 0.68rem;
+  }
 }
 
 .card-header {
